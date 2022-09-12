@@ -1,0 +1,14 @@
+<header>
+ <span class="logo-mark">BAUKIS2</span>
+ <%= content_tag(:span, flash.notice, class: "notice") if flash.notice %>
+ <%= content_tag(:span, flash.alert, class: "alert") if flash.alert %>
+ <%= 
+   if current_administrator
+    # admin_session_pathでもOK
+    link_to "ログアウト", :admin_session, method: :delete
+   else 
+    # admin_login_pathでもOK
+    link_to "ログイン", :admin_login
+   end
+ %>
+</header>

@@ -1,0 +1,19 @@
+<% @title = "ログイン" %>
+
+<div id="login-form">
+  <h1><%= @title %></h1>
+  <%# model: の部分に指定したオブジェクトのクラス名からプレフィックが導き出される。admin_login_form %>
+  <%= form_with model: @form, url: :admin_session do |f| %>
+    <div>
+      <%= f.label :email, "メールアドレス" %>
+      <%= f.text_field :email %>
+    </div>
+    <div>
+      <%= f.label :password, "パスワード" %>
+      <%= f.password_field :password %>
+    </div>
+    <div>
+      <%= f.submit "ログイン" %>
+    </div>
+  <% end %>
+</div>
