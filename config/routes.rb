@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   #  baukis2.rbの設定内容
   config = Rails.application.config.baukis2
-  
+
   constraints host: config[:staff][:host] do
     namespace :staff, path: config[:staff][:path] do
       root "top#index"
@@ -20,8 +20,9 @@ Rails.application.routes.draw do
     end
   end
   
-
-  namespace :customer do 
-    root "top#index"
+  constraints host: config[:customer][:host] do
+    namespace :customer, path: config[:customer][:path] do 
+      root "top#index"
+    end
   end
 end
