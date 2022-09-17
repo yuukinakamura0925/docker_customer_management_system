@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  #  baukis2.rbの設定内容
+  #  config/initializers/baukis2.rbの設定内容
   config = Rails.application.config.baukis2
-
+  # 制約（constraints）
   constraints host: config[:staff][:host] do
     namespace :staff, path: config[:staff][:path] do
       root "top#index"
