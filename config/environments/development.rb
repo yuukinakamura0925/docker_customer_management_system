@@ -6,10 +6,10 @@ Rails.application.configure do
   # since you don't have to restart the web server when you make code changes.
   config.cache_classes = false
 
-  # Do not eager load code on boot.
+  # ブート時にコードを読み込まないようにする。
   config.eager_load = false
 
-  # Show full error reports.
+  # 完全なエラーレポートを表示します
   config.consider_all_requests_local = true
 
   # Enable/disable caching. By default caching is disabled.
@@ -56,8 +56,11 @@ Rails.application.configure do
   # Raises error for missing translations.
   # config.action_view.raise_on_missing_translations = true
 
-  # Use an evented file watcher to asynchronously detect changes in source code,
-  # routes, locales, etc. This feature depends on the listen gem.
+  # イベント化されたファイルウォッチャーを使用して、ソースコードの変更を非同期で検出します。
+  # ルート、ロケールなど この機能は、listen gemに依存します。
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.web_console.whitelisted_ips = [ "172.16.0.0/12" ]
+
+  # gem 'better_errors','binding_of_caller'を使用するための記述
+  BetterErrors::Middleware.allow_ip! "0.0.0.0/0"
 end
