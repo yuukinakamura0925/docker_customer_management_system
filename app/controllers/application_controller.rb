@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   class IpAddressRejected < ActionController::ActionControllerError; end
 
   # module ErrorHandlersを読み込み(本番環境のみで使用するエラー画面の設定モジュール)
-  include ErrorHandlers if Rails.env.production?
+  include ErrorHandlers 
 
   private def set_layout
     if params[:controller].match(%r{\A(staff|admin|customer)/})
