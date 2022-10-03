@@ -1,5 +1,8 @@
 # current_administratorメソッドを利用するためAdmin::Base継承
 class Admin::SessionsController < Admin::Base
+  # authorizeが継承元Admin::Baseでbefore_actionに登録されているが、それをスキップする
+  skip_before_action :authorize
+
   def new
     # 管理者のログイン状況を調べる
     if current_administrator
