@@ -1,5 +1,8 @@
 class Staff::Base < ApplicationController
-   private def current_staff_member
+  before_action :authorize
+   private 
+   
+   def current_staff_member
     
     if session[:staff_member_id]
       # ||= 自己代入。右辺がnilまたはfalseであれば代入
@@ -9,4 +12,11 @@ class Staff::Base < ApplicationController
   end
   # application_helper.rbに記述しているのと同じ効果になる（erbで使える）
   helper_method :current_staff_member
+
+  def authorize
+    unless current_staff_member
+      flash.alert = "職員としてログインしてください"
+      redirect_to :staff_login
+    end
+  end
 end

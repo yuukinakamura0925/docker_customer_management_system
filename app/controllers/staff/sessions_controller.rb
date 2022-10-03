@@ -1,5 +1,7 @@
 # current_staff_memberメソッドを利用するためStaff::Base継承
 class Staff::SessionsController < Staff::Base
+   # authorizeが継承元Staff::Baseでbefore_actionに登録されているが、それをスキップする
+  skip_before_action :authorize
   def new
     # ユーザーのログイン状況を調べる
     if current_staff_member
