@@ -1,10 +1,10 @@
 FactoryBot.define do
   factory :staff_member do
     sequence(:email) { |n| "member#{n}@example.com" }
-    family_name { "中村" }
-    given_name { "勇希" }
-    family_name_kana { "ナカムラ" }
-    given_name_kana { "ユウキ" }
+    family_name { "山田" }
+    given_name { "太郎" }
+    family_name_kana { "ヤマダ" }
+    given_name_kana { "タロウ" }
     password { "pw" }
     start_date { Date.yesterday }
     end_date { nil }
