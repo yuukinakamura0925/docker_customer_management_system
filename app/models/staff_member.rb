@@ -6,4 +6,10 @@ class StaffMember < ApplicationRecord
       self.hashed_password = nil
     end
   end
+
+  def active?
+    # suspendedがfalse かつ 入社日が今日以前 かつ （退社日が空 または 退社日が今日以降）
+    !suspended? && start_date <= Date.today &&
+    (end_date.nil? || end_date > Date.today)
+  end
 end

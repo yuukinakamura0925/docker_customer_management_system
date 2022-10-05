@@ -1,5 +1,9 @@
 # current_staff_memberメソッドを利用するためStaff::Base継承
 class Staff::SessionsController < Staff::Base
+   # authorizeが継承元Staff::Baseでbefore_actionに登録されているが、それをスキップする
+  skip_before_action :authorize
+
+  # アカウント作成フォーム
   def new
     # ユーザーのログイン状況を調べる
     if current_staff_member
@@ -11,6 +15,7 @@ class Staff::SessionsController < Staff::Base
     end
   end
 
+  # ログイン処理
   def create 
     @form = Staff::LoginForm.new(login_form_params)
     if @form.email.present?
@@ -24,6 +29,8 @@ class Staff::SessionsController < Staff::Base
         render action: "new"
       else 
         session[:staff_member_id] = staff_member.id
+        # ログイン時の現在時刻をセッションオブジェクトに記録
+        session[:last_access_time] = Time.current
         flash.notice = "ログインしました"
         redirect_to :staff_root
       end

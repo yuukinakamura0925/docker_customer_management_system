@@ -1,8 +1,10 @@
 require "rails_helper"
 
-# describe "管理者によるログイン管理", "ログイン前" do
-#   include_examples "a protected admin controller", "admin/staff_members"
-# end
+# 第二引数"ログイン前"はコンテキスト。入れ子で「 context "ログイン前" do 」という書き方とイコール
+describe "管理者によるログイン管理", "ログイン前" do
+  # 第一引数に指定した名前の共有エグザンプル、第二引数に"a protected admin controller"のブロック引数として使われる
+  include_examples "a protected admin controller", "admin/staff_members"
+end
 
 describe "管理者による職員管理" do
   let(:administrator) { create(:administrator) }
@@ -23,17 +25,17 @@ describe "管理者による職員管理" do
       expect(response.status).to eq(200)
     end
 
-    # example "停止フラグがセットされたら強制的にログアウト" do
-    #   administrator.update_column(:suspended, true)
-    #   get admin_staff_members_url
-    #   expect(response).to redirect_to(admin_root_url)
-    # end
+    example "停止フラグがセットされたら強制的にログアウト" do
+      administrator.update_column(:suspended, true)
+      get admin_staff_members_url
+      expect(response).to redirect_to(admin_root_url)
+    end
 
-    # example "セッションタイムアウト" do
-    #   travel_to Admin::Base::TIMEOUT.from_now.advance(seconds: 1)
-    #   get admin_staff_members_url
-    #   expect(response).to redirect_to(admin_login_url)
-    # end
+    example "セッションタイムアウト" do
+      travel_to Admin::Base::TIMEOUT.from_now.advance(seconds: 1)
+      get admin_staff_members_url
+      expect(response).to redirect_to(admin_login_url)
+    end
   end
 
   describe "新規登録" do
