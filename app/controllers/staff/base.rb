@@ -1,7 +1,7 @@
 class Staff::Base < ApplicationController
   before_action :authorize
   before_action :check_account
-  # before_action :check_timeout
+  before_action :check_timeout
 
    private 
    def current_staff_member
@@ -33,16 +33,14 @@ class Staff::Base < ApplicationController
 
   TIMEOUT = 60.minutes
 
-  def check_timeout
+  private def check_timeout
     if current_staff_member
-      # 1時間以上経過していなければ
       if session[:last_access_time] >= TIMEOUT.ago
         session[:last_access_time] = Time.current
       else
-        # 1時間以上経過していたら
-        session.delete(:staff_member)
-        flash.alert = "セッションがタイムアウトしました"
-        redirect_to staff_login_path
+        session.delete(:staff_member_id)
+        flash.alert = "セッションがタイムアウトしました。"
+        redirect_to :staff_login
       end
     end
   end
