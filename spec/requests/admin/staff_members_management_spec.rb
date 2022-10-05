@@ -1,8 +1,10 @@
 require "rails_helper"
 
-# describe "管理者によるログイン管理", "ログイン前" do
-#   include_examples "a protected admin controller", "admin/staff_members"
-# end
+# 第二引数"ログイン前"はコンテキスト。入れ子で「 context "ログイン前" do 」という書き方とイコール
+describe "管理者によるログイン管理", "ログイン前" do
+  # 第一引数に指定した名前の共有エグザンプル、第二引数に"a protected admin controller"のブロック引数として使われる
+  include_examples "a protected admin controller", "admin/staff_members"
+end
 
 describe "管理者による職員管理" do
   let(:administrator) { create(:administrator) }
