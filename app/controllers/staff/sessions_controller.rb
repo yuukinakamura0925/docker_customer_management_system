@@ -25,12 +25,13 @@ class Staff::SessionsController < Staff::Base
 
     if Staff::Authenticator.new(staff_member).authenticate(@form.password)
       if staff_member.suspended?
+        staff_member.events.create!(type: "rejected") # ログイン失敗を記録
         flash.now.alert = "アカウントが停止されています"
         render action: "new"
       else 
         session[:staff_member_id] = staff_member.id
-        # ログイン時の現在時刻をセッションオブジェクトに記録
-        session[:last_access_time] = Time.current
+        session[:last_access_time] = Time.current # ログイン時の現在時刻をセッションオブジェクトに記録
+        staff_member.events.create!(type: "logged_in") # ログイン成功を記録
         flash.notice = "ログインしました"
         redirect_to :staff_root
       end
@@ -43,6 +44,9 @@ class Staff::SessionsController < Staff::Base
   def destroy
     #  セッションオブジェクトから:staff_member_idというキーを削除する
     session.delete(:staff_member_id)
+    if current_staff_member
+      staff_member.events.create!(type: "logged_out") # ログアウトを記録
+    end
     flash.notice = "ログアウトしました"
     redirect_to :staff_root
   end
