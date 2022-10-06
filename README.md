@@ -34,3 +34,9 @@ bin/rails s -b 0.0.0.0
 
 <!-- DBの確認 -->
 bin/rails r "StaffMember.columns.each{|c| p [c.name, c.type]}"
+
+<!-- psqlターミナルを開く -->
+psql -U postgres -h db baukis2_development
+
+<!-- 例staff_eventsの情報を見る -->
+\d staff_events
