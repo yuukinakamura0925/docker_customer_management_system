@@ -6,5 +6,7 @@ class Admin::StaffEventsController < Admin::Base
     else
       @events = StaffEvent.order(occurred_at: :desc)
     end
+    # kaminariページネーション
+    @events = @events.page(params[:page])
   end
 end
