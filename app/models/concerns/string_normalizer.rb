@@ -4,9 +4,10 @@ require "nkf"
 module StringNormalizer
   extend ActiveSupport::Concern
 
-  # def normalize_as_email(text)
-  #   NKF.nkf("-W -w -Z1", text).strip if text
-  # end
+  # 文字列に含まれる全角の英数字と記号を半角に変更し、全角スペースを半角スペースに変換いし、先頭と末尾の空白を空白を除去している
+  def normalize_as_email(text)
+    NKF.nkf("-W -w -Z1", text).strip if text
+  end
 
   def normalize_as_name(text)
     # 第一引数にフラグ文字、第二引数に変換対象の文字列をとり、変換後の文字列を返すのが、NKFモジュール

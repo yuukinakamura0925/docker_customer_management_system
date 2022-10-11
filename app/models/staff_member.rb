@@ -5,6 +5,7 @@ include StringNormalizer
 
   #バリデーションの直前に実行されるコールバック（正規化によってひらがな入力をカタカナに変換する処理している）
   before_validation do
+    self.email = normalize_as_email(email)
     self.family_name = normalize_as_name(family_name)
     self.given_name = normalize_as_name(given_name)
     self.family_name_kana = normalize_as_furigana(family_name_kana)
@@ -14,6 +15,7 @@ include StringNormalizer
   # 1個以上のカタカナ文字列にマッチする正規表現。\p{katakana}は任意のカタカナ1文字にマッチ。\u{30fc}は長音符1文字にマッチ
   KATAKANA_REGEXP = /\A[\p{katakana}\u{30fc}]+\z/
 
+  validates :email, presence: true, "valid_email_2/email": true, uniqueness: { case_sensitive: false } #大文字小文字の区別をしないでチェックしている
   validates :family_name, :given_name, presence: true
   validates :family_name_kana, :given_name_kana, presence: true,
     format: { with: KATAKANA_REGEXP, allow_blank: true }
